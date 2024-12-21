@@ -1,0 +1,104 @@
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--hue: 223;
+	--bg: hsl(var(--hue),90%,10%);
+	--fg: hsl(var(--hue),90%,90%);
+	font-size: clamp(1rem,0.95rem + 0.25vw,1.25rem);
+}
+body {
+	background-color: var(--bg);
+	color: var(--fg);
+	display: flex;
+	font: 1em/1.5 sans-serif;
+	height: 100vh;
+}
+.pl {
+	display: block;
+	margin: auto;
+	width: 8em;
+	height: auto;
+
+	&__star,
+	&__worm {
+		animation: {
+			duration: 10s;
+			timing-function: linear;
+			iteration-count: infinite;
+		};
+	}
+	&__star {
+		animation-name: spin;
+		transform-origin: 32px 32px;
+	}
+	&__worm {
+		animation-name: worm-length, worm-move;
+	}
+}
+
+/* Animations */
+@keyframes spin {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(1turn);
+	}
+}
+
+$starPerimeter: 190.88;
+$starPerimeterSegment: $starPerimeter * 0.1;
+$minWormLength: 0.1 $starPerimeter;
+$maxWormLength: $starPerimeter * 0.15 $starPerimeter * 0.85;
+
+$keyframes: 10;
+$percent: (100% / $keyframes);
+$oneHalf: (1 / 2);
+@keyframes worm-length {
+	@for $k from 0 through $keyframes {
+		@if $k == 0 {
+			0% {
+				stroke-dasharray: $minWormLength;
+			}
+		} @else {
+			#{$percent * ($k - $oneHalf)},
+			#{$percent * $k} {
+				@if $k % 2 == 0 {
+				  stroke-dasharray: $minWormLength;
+				} @else {
+				  stroke-dasharray: $maxWormLength;
+				}
+			}
+		}
+	}
+}
+
+$keyframes: 5;
+$percent: (100% / $keyframes);
+$oneFourth: (1 / 4);
+@keyframes worm-move {
+	@for $k from 0 through $keyframes {
+		$offset: -$starPerimeterSegment * 4 * $k;
+
+		@if $k == 0 {
+			0%,
+			#{$percent * ($k + $oneFourth)} {
+				stroke-dashoffset: $offset;
+			}
+		} @else if $k < $keyframes {
+			#{$percent * ($k - $oneFourth)},
+			#{$percent * ($k + $oneFourth)} {
+				stroke-dashoffset: $offset;
+			}
+		} @else {
+			#{$percent * ($k - $oneFourth)},
+			100% {
+				stroke-dashoffset: $offset;
+			}
+		}
+	}
+}

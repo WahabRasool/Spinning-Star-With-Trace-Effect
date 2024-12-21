@@ -1,0 +1,107 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hue: 223;
+  --bg: hsl(var(--hue),90%,10%);
+  --fg: hsl(var(--hue),90%,90%);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  display: flex;
+  font: 1em/1.5 sans-serif;
+  height: 100vh;
+}
+
+.pl {
+  display: block;
+  margin: auto;
+  width: 8em;
+  height: auto;
+}
+.pl__star, .pl__worm {
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.pl__star {
+  animation-name: spin;
+  transform-origin: 32px 32px;
+}
+.pl__worm {
+  animation-name: worm-length, worm-move;
+}
+
+/* Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes worm-length {
+  0% {
+    stroke-dasharray: 0.1 190.88;
+  }
+  5%, 10% {
+    stroke-dasharray: 28.632 162.248;
+  }
+  15%, 20% {
+    stroke-dasharray: 0.1 190.88;
+  }
+  25%, 30% {
+    stroke-dasharray: 28.632 162.248;
+  }
+  35%, 40% {
+    stroke-dasharray: 0.1 190.88;
+  }
+  45%, 50% {
+    stroke-dasharray: 28.632 162.248;
+  }
+  55%, 60% {
+    stroke-dasharray: 0.1 190.88;
+  }
+  65%, 70% {
+    stroke-dasharray: 28.632 162.248;
+  }
+  75%, 80% {
+    stroke-dasharray: 0.1 190.88;
+  }
+  85%, 90% {
+    stroke-dasharray: 28.632 162.248;
+  }
+  95%, 100% {
+    stroke-dasharray: 0.1 190.88;
+  }
+}
+@keyframes worm-move {
+  0%, 5% {
+    stroke-dashoffset: 0;
+  }
+  15%, 25% {
+    stroke-dashoffset: -76.352;
+  }
+  35%, 45% {
+    stroke-dashoffset: -152.704;
+  }
+  55%, 65% {
+    stroke-dashoffset: -229.056;
+  }
+  75%, 85% {
+    stroke-dashoffset: -305.408;
+  }
+  95%, 100% {
+    stroke-dashoffset: -381.76;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
